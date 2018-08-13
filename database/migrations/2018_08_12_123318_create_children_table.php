@@ -19,7 +19,7 @@ class CreateChildrenTable extends Migration
             $table->date('dob');
             $table->string('gender');
             $table->string('guardian');
-            $table->string('photo');
+            $table->string('image');
             $table->string('county');
             $table->timestamps();
         });

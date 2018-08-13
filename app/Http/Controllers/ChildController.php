@@ -41,7 +41,36 @@ class ChildController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'dob' => 'required',
+            'gender' => 'required',
+            'guardian' => 'required',
+            'county' => 'required',
+            'image' => 'required',
+        ]);
+
+        if($request->hasFile('image')) {
+            $filenameWithExt = $request->file('image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
+        }else {
+            $fileNameToStore = 'default.png';
+        }
+
+        $child= new \App\Child;
+
+        $child->name=$request->get('name');
+        $child->dob=$request->get('dob');
+        $child->gender=$request->get('gender');
+        $child->guardian=$request->get('guardian');
+        $child->county=$request->get('county');
+        $child->image=$fileNameToStore;
+        $child->save();
+
+        return redirect('admin')->with('success', 'Created Successfully');
     }
 
     /**
@@ -52,8 +81,8 @@ class ChildController extends Controller
      */
     public function show($id)
     {
-        $child = App\Child::find($id);
-        return view('admin.child.show', compat('child', 'id'));
+        $child = \App\Child::find($id);
+        return view('admin.child.show', compact('child', 'id'));
     }
 
     /**
@@ -64,8 +93,8 @@ class ChildController extends Controller
      */
     public function edit($id)
     {
-        $child = App\Child::find($id);
-        return view('admin.children.edit', compact('child','id'));
+        $child = \App\Child::find($id);
+        return view('admin.child.edit', compact('child','id'));
     }
 
     /**

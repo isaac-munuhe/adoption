@@ -17,7 +17,7 @@ class ChildrenTableSeeder extends Seeder
             'dob' => '04.12.2009',
             'guardian' => 'Willy',
             'county' => 'Kitui',
-            'photo' => asset('images/avatar.png'),
+            'image' => asset('images/avatar.png'),
         ]);
 
         App\Child::create([
@@ -26,7 +26,7 @@ class ChildrenTableSeeder extends Seeder
             'dob' => '05.11.2009',
             'guardian' => 'Charles',
             'county' => 'Meru',
-            'photo' => asset('images/avatar.png'),
+            'image' => asset('images/avatar.png'),
         ]);
 
         App\Child::create([
@@ -35,7 +35,7 @@ class ChildrenTableSeeder extends Seeder
             'dob' => '12.12.2005',
             'guardian' => 'Martin',
             'county' => 'Nairobi',
-            'photo' => asset('images/avatar.png'),
+            'image' => asset('images/avatar.png'),
         ]);
     }
 }

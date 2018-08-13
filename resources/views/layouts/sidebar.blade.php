@@ -12,9 +12,9 @@
             <span>View Child Bio</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url ('admin/upload')}}">
-            <i class="fas fa-fw fa-upload"></i>
-            <span>Upload Document</span></a>
+          <a class="nav-link" href="{{url ('admin/children/create')}}">
+            <i class="fas fa-fw fa-plus"></i>
+            <span>Add Child</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{url ('admin/request')}}">
