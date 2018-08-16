@@ -70,7 +70,7 @@ class ChildController extends Controller
         $child->image=$fileNameToStore;
         $child->save();
 
-        return redirect('admin')->with('success', 'Created Successfully');
+        return redirect('admin/children')->with('success', 'Created Successfully');
     }
 
     /**
@@ -106,7 +106,12 @@ class ChildController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $child= Child::find($id);
+        $child->name=$request->get('name');
+        $child->guardian=$request->get('guardian');
+        $child->county=$request->get('county');
+        $child->save();
+        return redirect('admin/children');
     }
 
     /**
@@ -117,6 +122,8 @@ class ChildController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $child = \App\Child::find($id);
+        $child->delete();
+        return redirect('admin/children')->with('success','Successfully  deleted');
     }
 }

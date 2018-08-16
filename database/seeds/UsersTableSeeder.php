@@ -12,14 +12,14 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         App\User::create([
-            'fname' => 'admin',
+            'name' => 'admin',
             'password' => bcrypt('admin'),
             'email' => 'admin@gmail.com',
             'admin' => 1,
         ]);
 
         App\User::create([
-            'fname' => 'Willy',
+            'name' => 'Willy',
             'lname' => 'Hassan',
             'idno' => '31778774',
             'phone' => '0717506477',
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         App\User::create([
-            'fname' => 'Sammy',
+            'name' => 'Sammy',
             'lname' => 'Rixton',
             'idno' => '31778004',
             'phone' => '0717506344',
@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         App\User::create([
-            'fname' => 'Muel',
+            'name' => 'Muel',
             'lname' => 'Sam',
             'idno' => '45778774',
             'phone' => '0756506477',
