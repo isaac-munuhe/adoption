@@ -1,95 +1,52 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
+<div class="jumbotron jumbotron-fluid" style="background: url('images/slide6.jpg') center no-repeat; margin-top: -2rem;">
+  <div class="container">
+    <h1 class="display-4 text-white">Rescue A Child!</h1>
+      <p class="lead text-white">We are committed to facilitating the provision of a quality life to any child in need. We are geared towards bringing together people and community networks with positive, compassionate resolve and sensitivity to strengthen, protect, enlighten and ensure the rights of the child are upheld</p>
+      <hr class="my-4 text-white">
+      <p class="text-white">116 or 1195 are the hotlines to report during elections in case of violence to rescue children and also gender−based violence victims.</p>
+      <a class="btn btn-primary btn-lg" href="{{url ('admin/children')}}" role="button">Adopt A Child</a>
+  </div>
+</div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+<div class="container">
+    <div class="card-columns">
+      <div class="card">
+        <img class="card-img-top" src="{{asset ('images/slide2.jpg')}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Our primary target is children aged between one and three years, but works towards a better life for children of all ages by promoting adoption locally and internationally and enhancing the capacities of communities to take care of their own children.</p>
         </div>
-    </body>
-</html>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="{{asset ('images/slide6.jpg')}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">We have focussed more on the promotion of adoption and fostering of HIV positive abandoned or neglected children by families locally and internationally.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="{{asset ('images/slide4.jpg')}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">We are an initiative that was established out of concern of the plight of the increasing numbers of disadvantaged children in Kenya due to HIV/AIDS, abuse, neglect and abandonment.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src="{{asset ('images/slide1.jpg')}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">We are registered as a Society as a fully-fledged organisation to address issues and concerns of children.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="{{asset ('images/slide3.jpg')}}" alt="Card image">
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">There are guidelines that ensure the Kenyan child is able to join a family while protecting every right of that child before, during and after the adoption process.</p>
+          <a href="#" class="btn btn-primary">Read more</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+@endsection

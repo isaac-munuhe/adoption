@@ -35,8 +35,10 @@
 		      	<img class="img-circle" src="{{asset('images/avatar.png')}}" style="width: 90px; height: 60px">
 		      </td>
 
-		      <td><a href="{{action('ChildController@show', $child['id'])}}" class="btn btn-info">Show</a></td>
+		      <td><a href="{{action('ChildController@show', $child['id'])}}" class="btn btn-info">Show Details</a></td>
 	        <td>
+	        @if(Auth::check())
+        	@if(Auth::user()->admin)
 	        <td><a href="{{action('ChildController@edit', $child['id'])}}" class="btn btn-warning">Edit</a></td>
 	        <td>
 	          <form action="{{action('ChildController@destroy', $child['id'])}}" method="post">
@@ -45,6 +47,8 @@
 	            <button class="btn btn-danger" type="submit">Delete</button>
 	          </form>
 	        </td>
+	        @endif
+	        @endif
 		    </tr>
 		    @endforeach
 		  </tbody>

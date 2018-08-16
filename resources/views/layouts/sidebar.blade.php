@@ -11,11 +11,15 @@
             <i class="fas fa-fw fa-users"></i>
             <span>View Child Bio</span></a>
         </li>
+        @if(Auth::check())
+        @if(Auth::user()->admin)
         <li class="nav-item">
           <a class="nav-link" href="{{url ('admin/children/create')}}">
             <i class="fas fa-fw fa-plus"></i>
             <span>Add Child</span></a>
         </li>
+        @endif
+        @endif
         <li class="nav-item">
           <a class="nav-link" href="{{url ('admin/request')}}">
             <i class="fas fa-fw fa-book"></i>
