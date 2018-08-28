@@ -24,11 +24,11 @@ class CreateAdopteesTable extends Migration
             $table->string('location');
             $table->text('reason');
             $table->string('address');
-            $table->string('passport');
-            $table->string('good_conduct');
-            // $table->integer('status')->default(0);
-            $table->string('bank');
-            $table->string('marriage_cert');
+            $table->string('passport')->nullable();
+            $table->string('good_conduct')->nullable();
+            $table->boolean('is_approved')->default(0);
+            $table->string('bank')->nullable();
+            $table->string('marriage_cert')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('child_id')->references('id')->on('children')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
