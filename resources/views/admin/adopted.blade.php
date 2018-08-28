@@ -8,23 +8,24 @@
             <hr>
         </div>
     </div>	
-    <div class="container">
-    	<table class="table table-striped">
+    <div class="container-fluid">
+    	<table class="table">
 		  <thead>
 		    <tr>
-		      <th scope="col">#</th>
+		      <th>#</th>
 		      
-		      <th scope="col">NAME</th>
-		      <th scope="col">ID NUMBER</th>
-		      <th scope="col">AGE</th>
-		      <th scope="col">MARITAL STATUS</th>
-		      <th scope="col">LOCATION</th>
-		      <th scope="col">ADDRESS</th>
-		      <th scope="col">PASSPORT</th>
-		      <th scope="col">GOOD CONDUCT</th>
-		      <th scope="col">BANK STATEMENT</th>
-		      <th scope="col">MARRIAGE CERTIFICATE</th>
-		      <th scope="col">CHILD ID</th>
+		      <th>Name</th>
+		      <th>ID NUMBER</th>
+		      <th>AGE</th>
+		      <th>Marital</th>
+		      <th>Location</th>
+		      <th>Address</th>
+		      <th>Passport</th>
+		      <th>Good Conduct</th>
+		      <th>Bank</th>
+		      {{-- <th>Marriage Cert</th> --}}
+		      <th>Child ID</th>
+		      <th>Action</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -40,8 +41,13 @@
 		      <td>{{$adoptee->passport}}</td>
 		      <td>{{$adoptee->good_conduct}}</td>
 		      <td>{{$adoptee->bank}}</td>
-		      <td>{{$adoptee->marriage_cert}}</td>
+		      {{-- <td>{{$adoptee->marriage_cert}}</td> --}}
 		      <td>{{$adoptee->child_id}}</td>
+		      <td><a href="#" class="btn btn-danger">Reject</a>
+		      </td>
+		      <td>
+		      	<a href="#" class="btn btn-success">Approve</a>
+		      </td>
 		    </tr>
 		    @empty
     		<p>No data found!</p>

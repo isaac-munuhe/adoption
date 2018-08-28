@@ -28,6 +28,11 @@
             <i class="fas fa-fw fa-user"></i>
             <span>Availbale 4 Adoption</span></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-chart-line"></i>
+            <span>Data Presentation</span></a>
+        </li>
         @endif
         @endif
         <li class="nav-item">

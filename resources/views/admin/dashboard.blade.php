@@ -25,6 +25,8 @@
                 </a>
               </div>
             </div>
+            @if(Auth::check())
+            @if(Auth::user()->admin)
             <div class="col-xl-3 col-sm-6 mb-3">
               <div class="card text-white bg-warning o-hidden h-100">
                 <div class="card-body">
@@ -41,6 +43,8 @@
                 </a>
               </div>
             </div>
+            @endif
+            @endif
             {{-- <div class="col-xl-3 col-sm-6 mb-3">
               <div class="card text-white bg-success o-hidden h-100">
                 <div class="card-body">

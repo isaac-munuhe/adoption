@@ -46,7 +46,7 @@ class ChildController extends Controller
         $this->validate($request, [
             'fname' => 'required',
             'lname' => 'required',
-            'dob' => 'required',
+            'dob' => 'required|date|after:2000-01-01',
             'gender' => 'required',
             'guardian' => 'required',
             'county' => 'required',
