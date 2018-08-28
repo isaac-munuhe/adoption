@@ -36,7 +36,7 @@ class AdopteesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,71 +52,52 @@ class AdopteesController extends Controller
             'bank' => 'required',
             'marriage_cert' => 'required',
         ]);
-
-        if($request->hasFile('passport')) {
-            $filenameWithExt = $request->file('passport')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('passport')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            $path = $request->file('passport')->storeAs('public/passports', $fileNameToStore);
-        }else {
-            $fileNameToStore = 'default.png';
+//dd($request->all());
+        $adoptee = Adoptee::create(array_merge($request->all()));
+        if ($request->hasFile('passport') || $request->hasFile('good_conduct') || $request->hasFile('marriage_cert') || $request->hasFile('bank')) {
+            $file = $request->file('passport');
+            $file1 = $request->file('good_conduct');
+            $file2 = $request->file('marriage_cert');
+            $file3 = $request->file('bank');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $fileName1 = time() . '.' . $file1->getClientOriginalExtension();
+            $fileName2 = time() . '.' . $file2->getClientOriginalExtension();
+            $fileName3 = time() . '.' . $file3->getClientOriginalExtension();
+            $request->passport->move('uploads/documents/', $fileName);
+            $request->good_conduct->move('uploads/documents/', $fileName1);
+            $request->marriage_cert->move('uploads/documents/', $fileName2);
+            $request->bank->move('uploads/documents/', $fileName3);
+            $adoptee->update([
+                'passport' => $fileName,
+                'good_conduct' => $fileName1,
+                'marriage_cert' => $fileName2,
+                'bank' => $fileName3,
+            ]);
         }
-
-        if($request->hasFile('bank')) {
-            $filenameWithExt = $request->file('bank')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('bank')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            $path = $request->file('bank')->storeAs('public/banks', $fileNameToStore);
-        }else {
-            $fileNameToStore = 'default.png';
-        }
-
-        if($request->hasFile('marriage_cert')) {
-            $filenameWithExt = $request->file('marriage_cert')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('marriage_cert')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            $path = $request->file('marriage_cert')->storeAs('public/marriage_certs', $fileNameToStore);
-        }else {
-            $fileNameToStore = 'default.png';
-        }
-
-        if($request->hasFile('good_conduct')) {
-            $filenameWithExt = $request->file('good_conduct')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('good_conduct')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            $path = $request->file('good_conduct')->storeAs('public/good_conducts', $fileNameToStore);
-        }else {
-            $fileNameToStore = 'default.png';
-        }
-
-        $adoptee= new \App\Adoptee;
-        $adoptee->user_id=Auth::id();
-        $adoptee->child_id=$request->child_id;
-        $adoptee->name=$request->get('name');
-        $adoptee->idno=$request->get('idno');
-        $adoptee->age=$request->get('age');
-        $adoptee->marital=$request->get('marital');
-        $adoptee->location=$request->get('location');
-        $adoptee->reason=$request->get('reason');
-        $adoptee->address=$request->get('address');
-        // $adoptee->status=$request->get('status');
-        $adoptee->passport=$fileNameToStore;
-        $adoptee->good_conduct=$fileNameToStore;
-        $adoptee->bank=$fileNameToStore;
-        $adoptee->marriage_cert=$fileNameToStore;
-        $adoptee->save();
 
         return redirect('admin')->with('success', 'Created Successfully');
+    }
+    // ---------------- Toggle status ----------
+    public function toggle_status($id)
+    {
+        //dd($id);
+        try {
+            $status = Adoptee::where('id', $id)->first()->is_approved;
+            if ($status == 1) {
+                Adoptee::where('id', $id)->update(['is_approved' => 0]);
+            } else {
+                Adoptee::where('id', $id)->update(['is_approved' => 1]);
+            }
+            return redirect()->back()->with('info', 'Adoption status has been updated!');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Whoops!, Something went wrong when updating status, Please try again.');
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -127,7 +108,7 @@ class AdopteesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -138,8 +119,8 @@ class AdopteesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -150,7 +131,7 @@ class AdopteesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -165,16 +146,16 @@ class AdopteesController extends Controller
             ->groupBy(DB::raw("day(created_at)"))
             ->get()->toArray();
         $child = array_column($child, 'count');
-        
+
         // $click = Click::select(DB::raw("SUM(numberofclick) as count"))
         //     ->orderBy("created_at")
         //     ->groupBy(DB::raw("year(created_at)"))
         //     ->get()->toArray();
         // $click = array_column($click, 'count');
-        
+
 
         return view('chartjs')
-                ->with('child',json_encode($child,JSON_NUMERIC_CHECK));
-                // ->with('click',json_encode($click,JSON_NUMERIC_CHECK));
+            ->with('child', json_encode($child, JSON_NUMERIC_CHECK));
+        // ->with('click',json_encode($click,JSON_NUMERIC_CHECK));
     }
 }

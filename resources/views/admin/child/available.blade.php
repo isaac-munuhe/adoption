@@ -33,7 +33,7 @@
 		      <td>{{$child->guardian}}</td>
 		      <td>{{$child->county}}</td>
 		      <td>
-		      	<img class="img-circle" src="/storage/photos/{{ $child->image }}" style="width: 90px; height: 60px">
+				  <img src="{{asset('/uploads/children/'.$child->image)}}" style="width: 90px; height: 60px">
 		      </td>
 		    </tr>
 		    @empty

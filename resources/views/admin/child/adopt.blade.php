@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="/storage/photos/{{ $child->image }}" alt="Card image cap">
+          <img class="card-img-top" src="{{asset('/uploads/children/'.$child->image)}}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title"><b>NAME:</b><span class="badge badge-primary">{{$child->fname}} {{$child->lname}} </span></h5>
             <p class="card-text">Other Details</p>
@@ -44,7 +44,7 @@
         <div class="card">
             <div class="card-header">Bio Info</div>
             <div class="card-body">
-                <form action="{{ route ('adoptees.store', $child['id']) }}" method="post" class="needs-validation" novalidate>
+                <form action="{{ route ('adoptees.store', $child['id']) }}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
                   @csrf
 
                   <div class="form-row">
@@ -54,8 +54,9 @@
                     </div>
                     <div class="form-group ">
                         <label>Child's Name *</label>
-                        <input type="text" name="" class="form-control" value="{{$child->fname}} {{$child->lname}}">
+                        <input type="text" class="form-control" value="{{$child->fname}} {{$child->lname}}">
                         <input type="hidden" name="child_id" class="form-control" value="{{$child->id}}">
+                        <input type="hidden" name="user_id" class="form-control" value="{{Auth::user()->id}}">
                     </div>
                     <div class="form-group col-md-6">
                       <label for="idno">National ID</label>
