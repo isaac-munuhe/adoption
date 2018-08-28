@@ -16,7 +16,7 @@ class CreateAdopteesTable extends Migration
         Schema::create('adoptees', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            // $table->integer('child_id')->unsigned();
+            $table->integer('child_id')->unsigned();
             $table->string('name');
             $table->integer('idno');
             $table->integer('age');
@@ -26,11 +26,11 @@ class CreateAdopteesTable extends Migration
             $table->string('address');
             $table->string('passport');
             $table->string('good_conduct');
-            $table->integer('status')->default(0);
+            // $table->integer('status')->default(0);
             $table->string('bank');
             $table->string('marriage_cert');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreign('child_id')->references('id')->on('children')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('child_id')->references('id')->on('children')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

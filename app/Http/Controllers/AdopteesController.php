@@ -7,6 +7,7 @@ use App\User;
 use App\Adoptee;
 use App\Child;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdopteesController extends Controller
 {
@@ -94,7 +95,7 @@ class AdopteesController extends Controller
 
         $adoptee= new \App\Adoptee;
         $adoptee->user_id=Auth::id();
-        // $adoptee->child_id=$child->id;
+        $adoptee->child_id=$request->child_id;
         $adoptee->name=$request->get('name');
         $adoptee->idno=$request->get('idno');
         $adoptee->age=$request->get('age');
@@ -102,7 +103,7 @@ class AdopteesController extends Controller
         $adoptee->location=$request->get('location');
         $adoptee->reason=$request->get('reason');
         $adoptee->address=$request->get('address');
-        $adoptee->status=$request->get('status');
+        // $adoptee->status=$request->get('status');
         $adoptee->passport=$fileNameToStore;
         $adoptee->good_conduct=$fileNameToStore;
         $adoptee->bank=$fileNameToStore;
@@ -155,5 +156,25 @@ class AdopteesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function chartjs()
+    {
+        $child = Child::select(DB::raw("SUM(gender) as count"))
+            ->orderBy("created_at")
+            ->groupBy(DB::raw("day(created_at)"))
+            ->get()->toArray();
+        $child = array_column($child, 'count');
+        
+        // $click = Click::select(DB::raw("SUM(numberofclick) as count"))
+        //     ->orderBy("created_at")
+        //     ->groupBy(DB::raw("year(created_at)"))
+        //     ->get()->toArray();
+        // $click = array_column($click, 'count');
+        
+
+        return view('chartjs')
+                ->with('child',json_encode($child,JSON_NUMERIC_CHECK));
+                // ->with('click',json_encode($click,JSON_NUMERIC_CHECK));
     }
 }

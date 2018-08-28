@@ -30,5 +30,6 @@ Route::prefix('admin')->group(function(){
     Route::resource('adoptees', 'AdopteesController');
     Route::get('adopt', 'ChildController@adopt')->name('adopt');
     Route::get('adoptees', 'AdopteesController@index')->name('index');
+    Route::get('chartjs', 'AdopteesController@chartjs');
 });
 

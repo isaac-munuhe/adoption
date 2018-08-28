@@ -87,7 +87,7 @@ class ChildController extends Controller
     public function show($id)
     {
         $child = \App\Child::find($id);
-        return view('admin.child.show', compact('child', 'id'));
+        return view('admin.child.adopt', ['child'=>$child]);
     }
 
     /**
@@ -141,9 +141,15 @@ class ChildController extends Controller
         return view('admin.child.available', ['children' => $children]);
     }
 
-    public function adopt(){
-        return view('admin.child.adopt');
+    public function adopt($id){
+        $child = Child::find($id);
+        return view('admin.child.adopt', ['child'=>$child]);
     }
+
+    // public function sponsorChild($id){
+    //     $kids =Kid::find($id);
+    //     return view('sponsorChild',['kids'=>$kids]);
+    // }
 
     public function adopted($id)
 
