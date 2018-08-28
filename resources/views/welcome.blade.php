@@ -43,7 +43,7 @@
       <div class="card">
         <div class="card-body">
           <p class="card-text">There are guidelines that ensure the Kenyan child is able to join a family while protecting every right of that child before, during and after the adoption process.</p>
-          <a href="#" class="btn btn-primary">Read more</a>
+          <a href="{{ url('guide') }}" class="btn btn-primary">Read more</a>
         </div>
       </div>
     </div>
