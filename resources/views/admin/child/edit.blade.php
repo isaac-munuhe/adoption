@@ -10,31 +10,35 @@
     <div class="container">
 	<div class="card">
 		<div class="card-body">
-			<form action="{{action('ChildController@update', $id)}}" method="POST">
+			<form action="{{action('ChildController@update', $id)}}" method="POST" enctype="multipart/form-data">
 				@csrf
 				@method('PUT')
 			  <div class="form-row">
 			    <div class="form-group col-md-6">
 			      <label for="fname">First Name</label>
-			      <input type="text" class="form-control" name="fname" id="fname" value="{{$child->fname}}">
+			      <input type="text" class="form-control" name="fname" id="fname" value="{{$child->fname ?? ''}}">
 			    </div>
 			    <div class="form-group col-md-6">
 			      <label for="lname">Last Name</label>
-			      <input type="text" class="form-control" name="lname" id="lname" value="{{$child->lname}}">
+			      <input type="text" class="form-control" name="lname" id="lname" value="{{$child->lname ?? ''}}">
 			    </div>
 			    <div class="form-group col-md-6">
 			      <label for="dob">Date Of Birth</label>
-			      <input type="date" class="form-control" name="dob" id="dob" value="{{$child->dob}}">
+			      <input type="date" class="form-control" name="dob" id="dob" value="{{$child->dob ?? ''}}">
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="guardian">Guardian</label>
-			    <input type="text" class="form-control" name="guardian" id="guardian" value="{{$child->guardian}}">
+			    <input type="text" class="form-control" name="guardian" id="guardian" value="{{$child->guardian ?? ''}}">
 			  </div>
 			  <div class="form-group">
 			    <label for="county">County</label>
-			    <input type="text" class="form-control" name="county" id="county" value="{{$child->county}}">
+			    <input type="text" class="form-control" name="county" id="county" value="{{$child->county ?? ''}}">
 			  </div>
+				<div class="form-group">
+					<label for="image">Photo</label>
+					<input type="file" class="form-control" name="image" id="image" value="{{ $child->image ?? '' }}">
+				</div>
 			<div class="form-row">
 			    <div class="form-group col-md-4">
 			      <label for="gender">Gender</label>
