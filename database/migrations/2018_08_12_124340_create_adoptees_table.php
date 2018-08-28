@@ -26,6 +26,7 @@ class CreateAdopteesTable extends Migration
             $table->string('address');
             $table->string('passport');
             $table->string('good_conduct');
+            $table->integer('status')->default(0);
             $table->string('bank');
             $table->string('marriage_cert');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

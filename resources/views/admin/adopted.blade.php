@@ -24,6 +24,7 @@
 		      <th scope="col">GOOD CONDUCT</th>
 		      <th scope="col">BANK STATEMENT</th>
 		      <th scope="col">MARRIAGE CERTIFICATE</th>
+		      <th scope="col">STATUS</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -41,6 +42,7 @@
 		      <td>{{$adoptee->good_conduct}}</td>
 		      <td>{{$adoptee->bank}}</td>
 		      <td>{{$adoptee->marriage_cert}}</td>
+		      <td>@include('layouts.status', ['status' => $adoptee->status])</td>
 		    </tr>
 		    @empty
     		<p>No data found!</p>

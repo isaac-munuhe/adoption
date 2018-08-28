@@ -102,6 +102,7 @@ class AdopteesController extends Controller
         $adoptee->location=$request->get('location');
         $adoptee->reason=$request->get('reason');
         $adoptee->address=$request->get('address');
+        $adoptee->status=$request->get('status');
         $adoptee->passport=$fileNameToStore;
         $adoptee->good_conduct=$fileNameToStore;
         $adoptee->bank=$fileNameToStore;
