@@ -15,12 +15,14 @@ class CreateChildrenTable extends Migration
     {
         Schema::create('children', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('fname');
+            $table->string('lname');
             $table->date('dob');
             $table->string('gender');
             $table->string('guardian');
             $table->string('image');
             $table->string('county');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

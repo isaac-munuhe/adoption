@@ -13,13 +13,17 @@
 <div class="container">
 	<div class="card">
 		<div class="card-body">
-			<form action="{{route ('children.store')}}" method="POST">
+			<form action="{{route ('children.store')}}" method="POST" enctype="multipart/form-data">
 				@csrf
 
 			  <div class="form-row">
 			    <div class="form-group col-md-6">
-			      <label for="name">Name</label>
-			      <input type="text" class="form-control" name="name" id="name" placeholder="Name of Child">
+			      <label for="fname">First Name</label>
+			      <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name">
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label for="lname">Last Name</label>
+			      <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name">
 			    </div>
 			    <div class="form-group col-md-6">
 			      <label for="dob">Date Of Birth</label>
@@ -34,7 +38,7 @@
 			    <label for="county">County</label>
 			    <input type="text" class="form-control" name="county" id="county" placeholder="e.g,Meru County">
 			  </div>
-			  <div class="form-row">
+			<div class="form-row">
 			    <div class="form-group col-md-6">
 			      <label for="image">Photo</label>
 			      <input type="file" class="form-control" name="image" id="image" placeholder="Enter child's photo">
@@ -47,7 +51,10 @@
 			        <option value="Female">Female</option>
 			      </select>
 			    </div>
-			  </div>
+			    <div class="form-group col-md-4">
+				    @include('layouts.status-select', ['status' => 0])
+				</div>
+			</div>
 			  <button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</div>

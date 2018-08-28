@@ -1,5 +1,4 @@
 @extends('layouts.main')
-
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -11,9 +10,9 @@
     	<div class="row">
     		<div class="col-md-4">
 			    <div class="card" style="width: 18rem;">
-				  <img class="card-img-top" src="{{asset('images/avatar.png')}}" alt="Card image cap">
+				  <img class="card-img-top" src="/storage/photos/{{ $child->image }}" alt="Card image cap">
 				  <div class="card-body">
-				    <h5 class="card-title"><b>NAME:</b><span class="badge badge-primary">{{$child->name}}</span></h5>
+				    <h5 class="card-title"><b>NAME:</b><span class="badge badge-primary">{{$child->fname}} {{$child->lname}} </span></h5>
 				    <p class="card-text">Other Details</p>
 				  </div>
 				  <ul class="list-group list-group-flush">
@@ -21,7 +20,7 @@
 				    <li class="list-group-item"><b>GENDER:</b><span class="badge badge-info">{{$child->gender}}</span></li>
 				    <li class="list-group-item"><b>GUARDIAN:</b><span class="badge badge-info">{{$child->guardian}}</span></li>
 				    <li class="list-group-item"><b>COUNTY:</b><span class="badge badge-info">{{$child->county}}</span></li>
-				    <li class="list-group-item"><a class="btn btn-primary" href="#">ADOPT</a></li>
+				    <li class="list-group-item"><a class="btn btn-primary" href="{{ route('adopt', $child['id'])}}">ADOPT</a></li>
 				  </ul>
 				</div>
 			</div>

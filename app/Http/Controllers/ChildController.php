@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
 
 use App\Child;
 
@@ -42,7 +44,8 @@ class ChildController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'fname' => 'required',
+            'lname' => 'required',
             'dob' => 'required',
             'gender' => 'required',
             'guardian' => 'required',
@@ -55,18 +58,20 @@ class ChildController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
-        }else {
+            $path = $request->file('image')->storeAs('/public/photos', $fileNameToStore);
+        } else {
             $fileNameToStore = 'default.png';
         }
 
         $child= new \App\Child;
 
-        $child->name=$request->get('name');
+        $child->fname=$request->get('fname');
+        $child->lname=$request->get('lname');
         $child->dob=$request->get('dob');
         $child->gender=$request->get('gender');
         $child->guardian=$request->get('guardian');
         $child->county=$request->get('county');
+        $child->status=$request->get('status');
         $child->image=$fileNameToStore;
         $child->save();
 
@@ -106,7 +111,16 @@ class ChildController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $child = Child::find($id);
+        $child->fname = $request->fname;
+        $child->lname = $request->lname;
+        $child->dob = $request->dob;
+        $child->gender = $request->gender;
+        $child->guardian = $request->guardian;
+        $child->county = $request->county;
+        $child->save();
+
+        return redirect()->route('children.index');
     }
 
     /**
@@ -117,6 +131,28 @@ class ChildController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $child = Child::find($id);
+        $child->delete();
+        return redirect()->route('children.index')->with('success','Child has been  deleted');
+    }
+
+    public function available()
+    {
+        $children = DB::select('select * from children where status = :status', ['status' => 1]);
+        return view('admin.child.available', ['children' => $children]);
+    }
+
+    public function adopt(){
+        return view('admin.child.adopt');
+    }
+
+    public function adopted($id)
+
+    {
+        $child = Child::find($id);
+        $child->adopted = 1;
+        $child->save();
+
+        return view()->back();
     }
 }
