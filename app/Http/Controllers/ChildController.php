@@ -75,7 +75,7 @@ class ChildController extends Controller
         $child->image=$fileNameToStore;
         $child->save();
 
-        return redirect('admin')->with('success', 'Created Successfully');
+        return redirect('admin/children')->with('success', 'Created Successfully');
     }
 
     /**
@@ -119,7 +119,6 @@ class ChildController extends Controller
         $child->guardian = $request->guardian;
         $child->county = $request->county;
         $child->save();
-
         return redirect()->route('children.index');
     }
 
@@ -152,7 +151,6 @@ class ChildController extends Controller
         $child = Child::find($id);
         $child->adopted = 1;
         $child->save();
-
         return view()->back();
     }
 }

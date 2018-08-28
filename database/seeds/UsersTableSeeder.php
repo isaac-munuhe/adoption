@@ -19,19 +19,22 @@ class UsersTableSeeder extends Seeder
         ]);
 
         App\User::create([
-            'name' => 'Willy',
+            'fname' => 'Willy',
+            'lname' => 'Hassan',
             'password' => bcrypt('user'),
             'email' => 'willy@gmail.com',
         ]);
 
         App\User::create([
-            'name' => 'Sammy',
+            'fname' => 'Sammy',
+            'lname' => 'Rixton',
             'password' => bcrypt('user'),
             'email' => 'sammy@gmail.com',
         ]);
 
         App\User::create([
-            'name' => 'Muel',
+            'fname' => 'Muel',
+            'lname' => 'Sam',
             'password' => bcrypt('user'),
             'email' => 'muel@gmail.com',
         ]);

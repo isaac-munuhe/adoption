@@ -17,6 +17,12 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->boolean('admin')->default(0);
             $table->string('name');
+            $table->string('lname')->nullable();
+            $table->integer('idno')->nullable();
+            $table->integer('phone')->nullable();
+            $table->string('county')->nullable();
+            $table->string('country')->nullable();
+            $table->string('marital_status')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();

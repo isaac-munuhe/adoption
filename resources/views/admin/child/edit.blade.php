@@ -3,17 +3,16 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <h1 class="display-4">Dashboard</h1>
+            <h1 class="display-4">Edit Child Details</h1>
             <hr>
         </div>
     </div>
-<div class="container">
+    <div class="container">
 	<div class="card">
 		<div class="card-body">
-			<form action="{{route ('children.update', ['child' => $child->id])}}" method="POST">
+			<form action="{{action('ChildController@update', $id)}}" method="POST">
 				@csrf
 				@method('PUT')
-
 			  <div class="form-row">
 			    <div class="form-group col-md-6">
 			      <label for="fname">First Name</label>

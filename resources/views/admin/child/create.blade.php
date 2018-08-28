@@ -27,7 +27,7 @@
 			    </div>
 			    <div class="form-group col-md-6">
 			      <label for="dob">Date Of Birth</label>
-			      <input type="date" class="form-control" name="dob" id="dob" placeholder="Date Of Birth">
+			      <input type="date" class="form-control" name="dob" id="dob">
 			    </div>
 			  </div>
 			  <div class="form-group">
