@@ -22,7 +22,7 @@ class CreateChildrenTable extends Migration
             $table->string('guardian');
             $table->string('image');
             $table->string('county');
-            $table->integer('status')->default(1);
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

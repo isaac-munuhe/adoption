@@ -21,6 +21,7 @@
     <link href="{{asset('vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/sb-admin.css')}}" rel="stylesheet">
 </head>
 
@@ -55,5 +56,39 @@
     <!-- Demo scripts for this page-->
     <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
     <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
+    <script src="{{asset('js/toastr.min.js')}}"></script>
+    <script>
+        toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+        }
+
+        @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}");
+        @endif
+
+
+        @if(Session::has('info'))
+        toastr.info("{{ Session::get('info') }}");
+        @endif
+        @if(Session::has('warning'))
+        toastr.warning("{{ Session::get('warning') }}");
+        @endif
+        @if(Session::has('error'))
+        toastr.error("{{ Session::get('error') }}");
+        @endif
+        </script>
 </body>
 </html>

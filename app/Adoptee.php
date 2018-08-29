@@ -19,7 +19,8 @@ class Adoptee extends Model
     	'passport',
     	'good_conduct',
     	'bank',
-    	'marriage_cert'
+    	'marriage_cert',
+    	'is_approved',
     ];
 
     public function child(){
@@ -27,3 +28,4 @@ class Adoptee extends Model
         return $this->hasMany('App\Children');
     }
 }
+

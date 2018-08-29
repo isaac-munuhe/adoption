@@ -35,10 +35,10 @@
 		      <td>{{$child->guardian}}</td>
 		      <td>{{$child->county}}</td>
 		      <td>
-		      	<img src="/storage/photos/{{ $child->image }}" style="width: 90px; height: 60px">
+		      	<img src="{{asset('/uploads/children/'.$child->image)}}" style="width: 90px; height: 60px">
 		      </td>
 		      <td>@include('layouts.status', ['status' => $child->status])</td>
-		      <td><a href="{{route('children.show', $child['id'])}}" class="btn btn-info">View</a></td>
+		      <td><a href="{{route('children.show', $child['id'])}}" class="btn btn-info">Adopt</a></td>
 	        <td>
 	        @if(Auth::check())
         	@if(Auth::user()->admin)

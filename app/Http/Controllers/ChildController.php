@@ -14,6 +14,7 @@ class ChildController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +39,7 @@ class ChildController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -46,106 +47,110 @@ class ChildController extends Controller
         $this->validate($request, [
             'fname' => 'required',
             'lname' => 'required',
-            'dob' => 'required',
+            'dob' => 'required|date|after:2000-01-01',
             'gender' => 'required',
             'guardian' => 'required',
             'county' => 'required',
             'image' => 'required',
         ]);
-
-        if($request->hasFile('image')) {
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            $path = $request->file('image')->storeAs('/public/photos', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'default.png';
+        try {
+            $child = Child::create(array_merge($request->all()));
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $fileName = time() . '.' . $file->getClientOriginalExtension();
+                $request->image->move('uploads/children/', $fileName);
+                $child->update(['image' => $fileName]);
+            }
+            return redirect()->back()->with('success', 'Child has been saved!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occured during submission, please try again!');
         }
 
-        $child= new \App\Child;
-
-        $child->fname=$request->get('fname');
-        $child->lname=$request->get('lname');
-        $child->dob=$request->get('dob');
-        $child->gender=$request->get('gender');
-        $child->guardian=$request->get('guardian');
-        $child->county=$request->get('county');
-        $child->status=$request->get('status');
-        $child->image=$fileNameToStore;
-        $child->save();
-
-        return redirect('admin/children')->with('success', 'Created Successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $child = \App\Child::find($id);
-        return view('admin.child.show', compact('child', 'id'));
+        $child = Child::find($id);
+        return view('admin.child.adopt', ['child' => $child]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $child = \App\Child::find($id);
-        return view('admin.child.edit', compact('child','id'));
+        $child = Child::find($id);
+        return view('admin.child.edit', compact('child', 'id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $child = Child::find($id);
-        $child->fname = $request->fname;
-        $child->lname = $request->lname;
-        $child->dob = $request->dob;
-        $child->gender = $request->gender;
-        $child->guardian = $request->guardian;
-        $child->county = $request->county;
-        $child->save();
-        return redirect()->route('children.index');
+        try {
+            $child = Child::find($id);
+            $child->update(array_merge($request->all()));
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $fileName = time() . '.' . $file->getClientOriginalExtension();
+                $request->image->move('uploads/children/', $fileName);
+                $child->update(['image' => $fileName]);
+            }
+            return redirect()->back()->with('info', 'Child info has been updated!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occured during updating the child!');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         $child = Child::find($id);
         $child->delete();
-        return redirect()->route('children.index')->with('success','Child has been  deleted');
+        return redirect()->route('children.index')->with('success', 'Child has been  deleted');
     }
 
-    public function available()
+    public
+    function available()
     {
         $children = DB::select('select * from children where status = :status', ['status' => 1]);
         return view('admin.child.available', ['children' => $children]);
     }
 
-    public function adopt(){
-        return view('admin.child.adopt');
+    public
+    function adopt($id)
+    {
+        $child = Child::find($id);
+        return view('admin.child.adopt', ['child' => $child]);
     }
 
-    public function adopted($id)
+// public function sponsorChild($id){
+//     $kids =Kid::find($id);
+//     return view('sponsorChild',['kids'=>$kids]);
+// }
+
+    public
+    function adopted($id)
 
     {
         $child = Child::find($id);

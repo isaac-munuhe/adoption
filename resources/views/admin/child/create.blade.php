@@ -19,29 +19,29 @@
 			  <div class="form-row">
 			    <div class="form-group col-md-6">
 			      <label for="fname">First Name</label>
-			      <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name">
+			      <input type="text" class="form-control" name="fname" id="fname" placeholder="First Name" required value="{{ old('fname') }}">
 			    </div>
 			    <div class="form-group col-md-6">
 			      <label for="lname">Last Name</label>
-			      <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name">
+			      <input type="text" class="form-control" name="lname" id="lname" placeholder="Last Name" required value="{{ old('lname') }}">
 			    </div>
 			    <div class="form-group col-md-6">
 			      <label for="dob">Date Of Birth</label>
-			      <input type="date" class="form-control" name="dob" id="dob">
+			      <input type="date" class="form-control" name="dob" id="dob" required>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="guardian">Guardian</label>
-			    <input type="text" class="form-control" name="guardian" id="guardian" placeholder="Guardian Name">
+			    <input type="text" class="form-control" name="guardian" id="guardian" placeholder="Guardian Name" required value="{{ old('guardian') }}">
 			  </div>
 			  <div class="form-group">
 			    <label for="county">County</label>
-			    <input type="text" class="form-control" name="county" id="county" placeholder="e.g,Meru County">
+			    <input type="text" class="form-control" name="county" id="county" placeholder="e.g,Meru County" required value="{{ old('county') }}">
 			  </div>
 			<div class="form-row">
 			    <div class="form-group col-md-6">
 			      <label for="image">Photo</label>
-			      <input type="file" class="form-control" name="image" id="image" placeholder="Enter child's photo">
+			      <input type="file" class="form-control" name="image" id="image" placeholder="Enter child's photo" required value="{{ old('image') }}">
 			    </div>
 			    <div class="form-group col-md-4">
 			      <label for="gender">Gender</label>

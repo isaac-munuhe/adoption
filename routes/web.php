@@ -15,6 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/guide', function () {
+    return view('guide');
+});
+
+// Route::get('/about', function () {
+//     return view('about');
+// });
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -30,5 +42,8 @@ Route::prefix('admin')->group(function(){
     Route::resource('adoptees', 'AdopteesController');
     Route::get('adopt', 'ChildController@adopt')->name('adopt');
     Route::get('adoptees', 'AdopteesController@index')->name('index');
+    Route::get('adoptee/toggle-status/{id}', 'AdopteesController@toggle_status');
+    Route::get('chartjs', 'AdopteesController@chartjs');
+    Route::get('export', 'AdopteesController@export');
 });
 
