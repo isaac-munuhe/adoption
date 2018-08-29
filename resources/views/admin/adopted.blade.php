@@ -81,6 +81,9 @@
                 @endforelse
                 </tbody>
             </table>
+
+            <a class="btn btn-primary" href="{{ url('admin/export') }}">Print</a>
+
             {{-- <button type="button" class="btn btn-danger btn-lg pull-right" onclick="window.print();"> <span class="fa fa-print"></span> Print</button> --}}
         </div>
     </div>

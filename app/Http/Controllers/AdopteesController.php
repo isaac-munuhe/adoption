@@ -8,6 +8,8 @@ use App\Adoptee;
 use App\Child;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\AdopteesExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdopteesController extends Controller
 {
@@ -139,23 +141,30 @@ class AdopteesController extends Controller
         //
     }
 
-    public function chartjs()
+    // public function chartjs()
+    // {
+    //     $child = Child::select(DB::raw("SUM(gender) as count"))
+    //         ->orderBy("created_at")
+    //         ->groupBy(DB::raw("day(created_at)"))
+    //         ->get()->toArray();
+    //     $child = array_column($child, 'count');
+
+    //     $click = Click::select(DB::raw("SUM(numberofclick) as count"))
+    //         ->orderBy("created_at")
+    //         ->groupBy(DB::raw("year(created_at)"))
+    //         ->get()->toArray();
+    //     $click = array_column($click, 'count');
+
+
+    //     return view('chartjs')
+    //         ->with('child', json_encode($child, JSON_NUMERIC_CHECK));
+    //     ->with('click',json_encode($click,JSON_NUMERIC_CHECK));
+    // }
+
+    public function export() 
     {
-        $child = Child::select(DB::raw("SUM(gender) as count"))
-            ->orderBy("created_at")
-            ->groupBy(DB::raw("day(created_at)"))
-            ->get()->toArray();
-        $child = array_column($child, 'count');
-
-        // $click = Click::select(DB::raw("SUM(numberofclick) as count"))
-        //     ->orderBy("created_at")
-        //     ->groupBy(DB::raw("year(created_at)"))
-        //     ->get()->toArray();
-        // $click = array_column($click, 'count');
-
-
-        return view('chartjs')
-            ->with('child', json_encode($child, JSON_NUMERIC_CHECK));
-        // ->with('click',json_encode($click,JSON_NUMERIC_CHECK));
+        return Excel::download(new AdopteesExport, 'adoptees.xlsx');
+        // (new AdopteesExport)->download('adoptees.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
+
 }
